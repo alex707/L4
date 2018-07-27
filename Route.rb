@@ -1,4 +1,7 @@
 class Route
+  attr_accessor :st_begin, :st_end
+  attr_reader :intermediate
+
   def initialize st_begin, st_end
     @st_begin  = st_begin
     @st_end    = st_end
@@ -14,12 +17,7 @@ class Route
     @intermediate.delete_if { |s| s.name == st_name }
   end
 
-  def station_list
+  def stations
     [@st_begin] + @intermediate + [@st_end]
   end
-
-  def st_begin
-    @st_begin
-  end
 end
-

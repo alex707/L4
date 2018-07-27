@@ -1,4 +1,7 @@
 class Station
+  attr_accessor :name
+  attr_reader :trains
+
   def initialize name
     @name   = name
 
@@ -13,7 +16,7 @@ class Station
     @trains.delete(train)
   end
 
-  def display_trains type = nil
+  def trains type = nil
     # return all
     if type.nil?
       @trains
@@ -21,7 +24,7 @@ class Station
     # return by type
     else
       @trains.map do |train|
-        train if train.tr_type == type.to_s
+        train if train.type == type.to_s
       end
     end
   end
@@ -37,18 +40,18 @@ class Station
 
       # return by type
       else
-        @trains.map { |train| train if train.tr_type == type.to_s }.compact.size
+        @trains.map { |train| train if train.type == type.to_s }.compact.size
       end
     end
   end
 
-  def send_train tr_number = nil
+  def send_train number = nil
     if @trains.any?
-      if tr_number.nil?
+      if number.nil?
         @trains.first.go_to_next_st
       else
         @trains.each do |train|
-          if train.tr_number == tr_number.to_i
+          if train.number == number.to_s
             train.go_to_next_st
             break
           end
@@ -56,9 +59,4 @@ class Station
       end
     end
   end
-
-  def name
-    @name
-  end
 end
-
