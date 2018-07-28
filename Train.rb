@@ -3,7 +3,7 @@ class Train
   attr_reader :route, :speed, :car_count
   attr_writer :st_number
 
-  def initialize number, type, car_count
+  def initialize(number, type, car_count)
     @number     = number
     @type       = type
     @car_count  = car_count
@@ -30,7 +30,7 @@ class Train
     @car_count -= 1 if @speed.zero? && @car_count.nonzero?
   end
 
-  def route= route
+  def route=(route)
     @route = route
 
     self.st_number = 0
@@ -65,3 +65,4 @@ class Train
     @route.stations[@st_number + 1]
   end
 end
+

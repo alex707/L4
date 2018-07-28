@@ -2,21 +2,21 @@ class Station
   attr_accessor :name
   attr_reader :trains
 
-  def initialize name
+  def initialize(name)
     @name   = name
 
     @trains = []
   end
 
-  def take_train train
+  def take_train(train)
     @trains << train
   end
 
-  def kick_train train
+  def kick_train(train)
     @trains.delete(train)
   end
 
-  def trains type = nil
+  def trains(type = nil)
     # return all
     if type.nil?
       @trains
@@ -29,7 +29,7 @@ class Station
     end
   end
 
-  def trains_count type = nil
+  def trains_count(type = nil)
     # method return number of 'cargo' or 'pass' trains
     # if type is null, then will return count of all trains on the st
 
@@ -45,7 +45,7 @@ class Station
     end
   end
 
-  def send_train number = nil
+  def send_train(number = nil)
     if @trains.any?
       if number.nil?
         @trains.first.go_to_next_st
@@ -60,3 +60,4 @@ class Station
     end
   end
 end
+
