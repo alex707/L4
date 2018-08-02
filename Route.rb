@@ -1,6 +1,5 @@
 class Route
-  attr_accessor :st_begin, :st_end
-  attr_reader :intermediate
+  attr_reader :intermediate, :st_begin, :st_end
 
   def initialize(st_begin, st_end)
     @st_begin  = st_begin
@@ -20,5 +19,9 @@ class Route
   def stations
     [@st_begin] + @intermediate + [@st_end]
   end
+
+  private
+
+  attr_writer :intermediate, :st_begin, :st_end
 end
 

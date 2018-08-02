@@ -1,17 +1,15 @@
 class Train
-  attr_accessor :number, :type
-  attr_reader :route, :speed, :car_count
-  attr_writer :st_number
+  attr_reader :route, :speed, :number, :type
 
-  def initialize(number, type, car_count)
+  def initialize(number, type)
     @number     = number
     @type       = type
-    @car_count  = car_count
 
     @speed      = 0
 
     @st_number  = nil
     @route      = nil
+    @cars       = []
   end
 
   def accelerate
@@ -20,14 +18,6 @@ class Train
 
   def breake
     @speed = 0
-  end
-
-  def car_connect
-    @car_count += 1 if @speed.zero?
-  end
-
-  def car_disconnect
-    @car_count -= 1 if @speed.zero? && @car_count.nonzero?
   end
 
   def route=(route)
@@ -64,5 +54,13 @@ class Train
   def next_st
     @route.stations[@st_number + 1]
   end
+
+  def cars_count
+    @cars.size
+  end
+
+  private
+
+  attr_writer :st_number
 end
 
