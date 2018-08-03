@@ -4,6 +4,8 @@ load './Train.rb'
 load './PassengerTrain.rb'
 load './CargoTrain.rb'
 load './Car.rb'
+load './PassengerCar.rb'
+load './CargoCar.rb'
 
 choise = ''
 
@@ -85,19 +87,19 @@ while choise != 'stop' do
     name_2 = gets.chomp
 
     route = routes.map { |r| r if r.st_begin.name == name_1 && r.st_end.name == name_2 }.compact.first
-    if route.nil?
-      puts 'Route not found.'
-    else
+    if route
       print 'Enter station name to add (from existing): '
       name_3 = gets.chomp
 
       station = stations.map { |s| s if s.name == name_3 }.compact.first
-      if station.nil?
-        puts 'Station for add not found. check station list (see p. 11)'
-      else
+      if station
         route.add_station station
         puts 'Station was added to route'
+      else
+        puts 'Station for add not found. check station list (see p. 11)'
       end
+    else
+      puts 'Route not found.'
     end
 
   when '5'
@@ -107,19 +109,19 @@ while choise != 'stop' do
     name_2 = gets.chomp
 
     route = routes.map { |r| r if r.st_begin.name == name_1 && r.st_end.name == name_2 }.compact.first
-    if route.nil?
-      puts 'Route not found.'
-    else
+    if route
       print 'Enter station name to remove (from existing in route list): '
       name_3 = gets.chomp
 
       station = route.intermediate.map { |s| s if s.name == name_3 }.compact.first
-      if station.nil?
-        puts 'Station for remove not found. check station list in route(see p. 13)'
-      else
+      if station
         route.delete_station(name_3)
         puts 'Station was removed from route'
+      else
+        puts 'Station for remove not found. check station list in route(see p. 13)'
       end
+    else
+      puts 'Route not found.'
     end
 
   when '6'
@@ -127,21 +129,21 @@ while choise != 'stop' do
     number = gets.to_i
 
     train = trains.map { |t| t if t.number == number }.compact.first
-    if train.nil?
-      puts 'Train not found.'
-    else
+    if train
       print 'Enter begin station name (first station of route): '
       name_1 = gets.chomp
       print 'Enter end station name (last station of route): '
       name_2 = gets.chomp
 
       route = routes.map { |r| r if r.st_begin.name == name_1 && r.st_end.name == name_2 }.compact.first
-      if route.nil?
-        puts 'Route not found.'
-      else
+      if route
         train.route = route
         puts 'Route entered.'
+      else
+        puts 'Route not found.'
       end
+    else
+      puts 'Train not found.'
     end
 
   when '7'
@@ -149,11 +151,11 @@ while choise != 'stop' do
     number = gets.to_i
 
     train = trains.map { |t| t if t.number == number }.compact.first
-    if train.nil?
-      puts 'Train not found.'
-    else
+    if train
       train.type == 'pass' ? train.car_connect(PassengerCar.new) : train.car_connect(CargoCar.new)
       puts 'Car added.'
+    else
+      puts 'Train not found.'
     end
 
   when '8'
@@ -161,15 +163,15 @@ while choise != 'stop' do
     number = gets.to_i
 
     train = trains.map { |t| t if t.number == number }.compact.first
-    if train.nil?
-      puts 'Train not found.'
-    else
+    if train
       if train.cars_count == 0
         puts 'Can not to remove cars: cars count is zero.'
       else
         train.car_disconnect
         puts 'Car removed.'
       end
+    else
+      puts 'Train not found.'
     end
 
   when '9'
@@ -177,15 +179,15 @@ while choise != 'stop' do
     number = gets.to_i
 
     train = trains.map { |t| t if t.number == number }.compact.first
-    if train.nil?
-      puts 'Train not found.'
-    else
-      if train.route.nil?
-        puts 'Can not move train: set route.'
-      else
+    if train
+      if train.route
         train.go_to_next_st
         puts 'Train moved.'
+      else
+        puts 'Can not move train: set route.'
       end
+    else
+      puts 'Train not found.'
     end
 
   when '10'
@@ -193,15 +195,15 @@ while choise != 'stop' do
     number = gets.to_i
 
     train = trains.map { |t| t if t.number == number }.compact.first
-    if train.nil?
-      puts 'Train not found.'
-    else
-      if train.route.nil?
-        puts 'Can not move train: set route.'
-      else
+    if train
+      if train.route
         train.go_to_prev_st
         puts 'Train moved.'
+      else
+        puts 'Can not move train: set route.'
       end
+    else
+      puts 'Train not found.'
     end
 
   when '11'

@@ -20,8 +20,5 @@ class Route
     [@st_begin] + @intermediate + [@st_end]
   end
 
-  private
-
-  attr_writer :intermediate, :st_begin, :st_end
 end
 

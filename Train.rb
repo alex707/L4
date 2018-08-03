@@ -23,7 +23,7 @@ class Train
   def route=(route)
     @route = route
 
-    self.st_number = 0
+    @st_number = 0
     station.take_train self
   end
 
@@ -59,8 +59,9 @@ class Train
     @cars.size
   end
 
-  private
+  def car_disconnect
+    @cars.delete_at(-1)
+  end 
 
-  attr_writer :st_number
 end
 
